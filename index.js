@@ -26,62 +26,66 @@ import { locales } from "./locales.js";
   time.addEventListener("input", () => {
     const date = new Date(time.value);
     setItems(date);
+
+    filterItems();
   });
 
   setItems(date);
+  function setItems(date) {
+    const items = document.querySelectorAll(".item:not(.template)");
+    items.forEach((item) => {
+      const locale = item.querySelector(".locale").textContent;
+
+      item.querySelector(".full").textContent = date.toLocaleString(locale);
+      item.querySelector(".date").textContent = date.toLocaleDateString(locale);
+      item.querySelector(".time").textContent = date.toLocaleTimeString(locale);
+    });
+  }
 })();
 
-function setItems(date) {
-  const items = document.querySelectorAll(".item:not(.template)");
-  items.forEach((item) => {
-    const locale = item.querySelector(".locale").textContent;
-
-    item.querySelector(".full").textContent = date.toLocaleString(locale);
-    item.querySelector(".date").textContent = date.toLocaleDateString(locale);
-    item.querySelector(".time").textContent = date.toLocaleTimeString(locale);
-  });
-}
-
 (function initializeFilter() {
+  const filter = document.getElementById("filter");
+  filter.addEventListener("input", filterItems);
+})();
+
+function filterItems() {
   const filter = document.getElementById("filter");
 
   const items = document.querySelectorAll(".item:not(.template)");
   const empty = document.getElementById("empty");
 
-  filter.addEventListener("input", () => {
-    if (filter.value.trim()) {
-      const parts = filter.value.split(" ");
+  if (filter.value.trim()) {
+    const parts = filter.value.split(" ");
 
-      let count = 0;
+    let count = 0;
 
-      items.forEach((item) => {
-        const locale = item.querySelector(".locale").textContent;
-        const full = item.querySelector(".full").textContent;
-        const date = item.querySelector(".date").textContent;
-        const time = item.querySelector(".time").textContent;
+    items.forEach((item) => {
+      const locale = item.querySelector(".locale").textContent;
+      const full = item.querySelector(".full").textContent;
+      const date = item.querySelector(".date").textContent;
+      const time = item.querySelector(".time").textContent;
 
-        const active = parts.every(
-          (part) =>
-            locale.includes(part) ||
-            full.includes(part) ||
-            date.includes(part) ||
-            time.includes(part)
-        );
+      const active = parts.every(
+        (part) =>
+          locale.includes(part) ||
+          full.includes(part) ||
+          date.includes(part) ||
+          time.includes(part)
+      );
 
-        item.classList.toggle("active", active);
+      item.classList.toggle("active", active);
 
-        if (active) {
-          count++;
-        }
-      });
+      if (active) {
+        count++;
+      }
+    });
 
-      empty.classList.toggle("active", count <= 0);
-    } else {
-      items.forEach((item) => {
-        item.classList.add("active");
-      });
+    empty.classList.toggle("active", count <= 0);
+  } else {
+    items.forEach((item) => {
+      item.classList.add("active");
+    });
 
-      empty.classList.remove("active");
-    }
-  });
-})();
+    empty.classList.remove("active");
+  }
+}
