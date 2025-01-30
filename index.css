@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  background-color: #6c7394;
+  background-image: url("./background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding-top: 20vh;
+  padding-bottom: 5vh;
+  padding-left: max(calc(50vw - 400px), 0px);
+  padding-right: max(calc(50vw - 400px), 0px);
+  font-family: "Montserrat", serif;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+  user-select: none;
+  pointer-events: none;
+}
+
+h1 {
+  margin: 0;
+  font-size: 45vh;
+  line-height: 33vh;
+  text-align: center;
+  color: #ffffff88;
+}
+
+.control {
+  display: flex;
+  gap: 1px;
+}
+
+#filter,
+#time {
+  width: min(800px, 100vw);
+  box-sizing: border-box;
+  border: none;
+  padding: 10px 25px;
+  font-size: 16px;
+}
+
+#filter {
+  flex: 2;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+#time {
+  flex: 1;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.header,
+.line,
+.message {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.header,
+.line {
+  display: flex;
+  gap: 15px;
+}
+
+.header {
+  margin-top: 30px;
+}
+
+.locale {
+  flex: 1;
+}
+
+.full {
+  flex: 3;
+}
+
+.date,
+.time {
+  flex: 2;
+}
+
+.item,
+#empty {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: 0.3s;
+}
+
+.item.active,
+#empty.active {
+  grid-template-rows: 1fr;
+}
+
+.item.template {
+  display: none;
+}
+
+.content {
+  overflow: hidden;
+}
+
+.line,
+.message {
+  margin-top: 10px;
+  border-radius: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.line {
+  background-color: #000000ee;
+  color: #fff;
+}
+
+.message {
+  background-color: #00000044;
+  color: #444;
+}
+
+footer {
+  margin-top: 50px;
+  text-align: center;
+}
