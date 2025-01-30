@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
+* {
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
 html {
   margin: 0;
   padding: 0;
@@ -18,13 +25,14 @@ body {
   padding-left: max(calc(50vw - 400px), 0px);
   padding-right: max(calc(50vw - 400px), 0px);
   font-family: "Montserrat", serif;
+  overflow-x: hidden;
 }
 
-* {
-  box-sizing: border-box;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
+@media screen and (max-width: 800px) {
+  body {
+    padding-left: max(calc((100vw - 150px) * 50 / 750), 0px);
+    padding-right: max(calc((100vw - 150px) * 50 / 750), 0px);
+  }
 }
 
 .backdrop {
@@ -33,19 +41,17 @@ body {
   left: 0;
   right: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: -1;
-  user-select: none;
-  pointer-events: none;
-}
-
-h1 {
-  margin: 0;
   font-size: 45vh;
+  font-weight: 700;
   line-height: 33vh;
   text-align: center;
   color: #ffffff88;
+  z-index: -1;
+  user-select: none;
+  pointer-events: none;
 }
 
 .control {
@@ -53,9 +59,15 @@ h1 {
   gap: 1px;
 }
 
+@media screen and (max-width: 800px) {
+  .control {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+}
+
 #filter,
 #time {
-  width: min(800px, 100vw);
   box-sizing: border-box;
   border: none;
   padding: 10px 25px;
@@ -63,15 +75,29 @@ h1 {
 }
 
 #filter {
-  flex: 2;
+  flex: 2 1 0px;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
 }
 
+@media screen and (max-width: 800px) {
+  #filter {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+}
+
 #time {
-  flex: 1;
+  flex: 1 2 0px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
+}
+
+@media screen and (max-width: 800px) {
+  #time {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
 }
 
 .header,
@@ -102,6 +128,13 @@ h1 {
 .date,
 .time {
   flex: 2;
+}
+
+@media screen and (max-width: 800px) {
+  .date,
+  .time {
+    display: none;
+  }
 }
 
 .item,
@@ -140,6 +173,84 @@ h1 {
 .message {
   background-color: #00000044;
   color: #444;
+}
+
+.width {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: 1s;
+  user-select: none;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 300px) {
+  .width {
+    backdrop-filter: blur(3px);
+  }
+}
+
+@media screen and (min-width: 300px) {
+  .width {
+    opacity: 0;
+    transition: 0.3s;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .width {
+    display: none;
+  }
+}
+
+.width::before,
+.width::after {
+  position: absolute;
+  top: calc(50% + 8px);
+  font-size: 20px;
+}
+
+.width::before {
+  left: 0;
+  content: "🤛";
+}
+
+.width::after {
+  right: 0;
+  content: "🤜";
+}
+
+.face {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  font-size: 30px;
+  text-align: center;
+}
+
+@media screen and (max-width: 250px) {
+  .face {
+    animation: vibrate 0.08s infinite alternate;
+  }
+}
+
+@keyframes vibrate {
+  0% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+
+@media screen and (max-width: 200px) {
+  .face {
+    animation: vibrate 0.1s infinite;
+  }
 }
 
 footer {
