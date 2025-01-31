@@ -1,11 +1,21 @@
-import { locales } from "./locales.js";
+import { suggestedLocales, allLocales } from "./locales.js";
 
 (function initializeItems() {
   const list = document.getElementById("list");
 
   const template = list.querySelector(".item.template");
 
-  for (const locale of locales) {
+  for (const locale of suggestedLocales.reverse()) {
+    const item = template.cloneNode(true);
+    item.classList.remove("template");
+    item.classList.add("suggested");
+
+    item.querySelector(".locale").textContent = locale;
+
+    list.prepend(item);
+  }
+
+  for (const locale of allLocales) {
     const item = template.cloneNode(true);
     item.classList.remove("template");
 
@@ -57,7 +67,7 @@ function filterItems() {
   if (filter.value.trim()) {
     const parts = filter.value.split(" ");
 
-    let count = 0;
+    const activeItems = [];
 
     items.forEach((item) => {
       const locale = item.querySelector(".locale").textContent;
@@ -76,15 +86,19 @@ function filterItems() {
       item.classList.toggle("active", active);
 
       if (active) {
-        count++;
+        activeItems.push(item);
       }
     });
 
-    empty.classList.toggle("active", count <= 0);
+    if (activeItems.length <= 10) {
+      [...activeItems]
+        .filter((item) => item.classList.contains("suggested"))
+        .forEach((item) => item.classList.remove("active"));
+    }
+
+    empty.classList.toggle("active", activeItems.length <= 0);
   } else {
-    items.forEach((item) => {
-      item.classList.add("active");
-    });
+    items.forEach((item) => item.classList.add("active"));
 
     empty.classList.remove("active");
   }

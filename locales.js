@@ -1,4 +1,15 @@
-export const locales = [
+export const suggestedLocales = [
+  "en-CA",
+  "en-GB",
+  "en-HK",
+  "en-US",
+  "ja-JP",
+  "lt-LT",
+  "zh-HK",
+  "zh-SG",
+];
+
+export const allLocales = [
   "aa-ER",
   "af-NA",
   "af-ZA",

@@ -137,6 +137,11 @@ body {
   }
 }
 
+#separator {
+  padding-top: 10px;
+  border-bottom: 1px dashed #00000044;
+}
+
 .item,
 #empty {
   display: grid;
@@ -166,6 +171,7 @@ body {
 }
 
 .line {
+  position: relative;
   background-color: #000000ee;
   color: #fff;
 }
